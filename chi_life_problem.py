@@ -12,5 +12,13 @@
 
 # Note:  If you would like to present something different than the above for your graph using this dataset, just let me know your intentions before you start and I will do my best to support you.
 
+import csv
+import matplotlib as plt
+import numpy as py
 
+ply.figure(tight_layout = True, figsize = [12,5])
 
+plt.bar(np.arange(len(life_1990_list)), life_2000_list, life_2010_list))
+plt.ylim([50, 80])
+plt.text(35, 61.8, "Minimum = ")
+ply.arrow(35, 61.8, 5, 5, head_width = 1, color = "black")
