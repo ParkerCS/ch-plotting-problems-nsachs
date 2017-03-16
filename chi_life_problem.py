@@ -16,9 +16,35 @@ import csv
 import matplotlib as plt
 import numpy as py
 
-ply.figure(tight_layout = True, figsize = [12,5])
+file = open("chi_life_expectancy.txt", "r")
+
+# Reading the file into a list
+life_expectancy = []
+reader = csv.reader(file, delimiter = '\t')
+for line in reader:
+    life_expectancy.append(line)
+#print(life_expectancy)
+
+#Scanning the list to get the life expectancy in 2010
+life_expectancy_2010 = []
+for i in range(1,len(life_expectancy)):
+    life_expectancy_2010.append(float(life_expectancy[i][8]))
+print(life_expectancy_2010)
+
+#Scanning for only the community names and creating a list
+community_list = []
+for i in range(1,len(life_expectancy)):
+    community_list.append(life_expectancy[i][1])
+community_list = life_expectancy[1:][1]
+print(community_list)
+
+#x = community name
+#y = life expectancy in 2010
+'''
+plt.figure(tight_layout = True, figsize = [12,5])
 
 plt.bar(np.arange(len(life_1990_list)), life_2000_list, life_2010_list))
 plt.ylim([50, 80])
 plt.text(35, 61.8, "Minimum = ")
-ply.arrow(35, 61.8, 5, 5, head_width = 1, color = "black")
+plt.arrow(35, 61.8, 5, 5, head_width = 1, color = "black")
+'''
