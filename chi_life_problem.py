@@ -16,6 +16,7 @@ import csv
 import matplotlib.pyplot as plt
 import numpy as np
 from operator import itemgetter
+import matplotlib.patches as mpatches
 
 file = open("chi_life_expectancy.txt", "r")
 
@@ -24,7 +25,7 @@ life_expectancy = []
 reader = csv.reader(file, delimiter = '\t')
 for line in reader:
     life_expectancy.append(line)
-#print(life_expectancy)
+print(life_expectancy)
 
 #Sorting from lowest to highest
 life_expectancy.sort(key=itemgetter(8))
@@ -35,6 +36,10 @@ for i in range(1,len(life_expectancy)):
     life_expectancy_2010.append(float(life_expectancy[i][8]))
 print(life_expectancy_2010)
 
+life_expectancy_1990 = []
+for i in range(1, len(life_expectancy)):
+    life_expectancy_1990.append(float(life_expectancy[i][2]))
+
 #Scanning for only the community names and creating a list
 community_list = []
 for i in range(len(life_expectancy)):
@@ -44,19 +49,25 @@ print(community_list[1:])
 
 
 plt.figure(tight_layout = True, figsize = [12,5])
-plt.bar(np.arange(len(life_expectancy_2010)), life_expectancy_2010, color = "seagreen")
+plt.bar(np.arange(len(life_expectancy_2010)), life_expectancy_2010, color = "lightblue")
 plt.xticks(np.arange(len(community_list)-1), community_list[1:], rotation=90)
-
+plt.subplot()
+plt.bar(np.arange(len(life_expectancy_1990)), life_expectancy_1990, color = "seagreen")
 
 #Label axes and title
 plt.xlabel("Community Names")
 plt.ylabel("2010 Life Expectancy")
 plt.title("Life Expectancy in 2010 by Community")
 
+#Legend
+key_2010 = mpatches.Patch(color = "lightblue", label = "2010 Life Expectancy")
+key_1990 = mpatches.Patch(color = "seagreen", label = "1990 Life Expectancy")
+
 #y limit, minimum, and extras
+plt.legend(handles = [key_2010, key_1990])
 plt.ylim([55, 90])
-plt.text(1, 61.8, "Minimum = ")
-plt.arrow(35, 61.8, 5, 5, head_width = 1, color = "black")
+plt.text(30, 87, "Minimum = 85.2 yrs")
+plt.text(30, 85, "Maximum = 68.8 yrs")
 
 
 plt.show()
