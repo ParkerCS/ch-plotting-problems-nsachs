@@ -13,8 +13,9 @@
 # Note:  If you would like to present something different than the above for your graph using this dataset, just let me know your intentions before you start and I will do my best to support you.
 
 import csv
-import matplotlib as plt
-import numpy as py
+import matplotlib.pyplot as plt
+import numpy as np
+from operator import itemgetter
 
 file = open("chi_life_expectancy.txt", "r")
 
@@ -25,6 +26,9 @@ for line in reader:
     life_expectancy.append(line)
 #print(life_expectancy)
 
+#Sorting from lowest to highest
+life_expectancy.sort(key=itemgetter(8))
+
 #Scanning the list to get the life expectancy in 2010
 life_expectancy_2010 = []
 for i in range(1,len(life_expectancy)):
@@ -33,18 +37,27 @@ print(life_expectancy_2010)
 
 #Scanning for only the community names and creating a list
 community_list = []
-for i in range(1,len(life_expectancy)):
+for i in range(len(life_expectancy)):
     community_list.append(life_expectancy[i][1])
-community_list = life_expectancy[1:][1]
-print(community_list)
+#community_list = life_expectancy[1:][1]
+print(community_list[1:])
 
-#x = community name
-#y = life expectancy in 2010
-'''
+
 plt.figure(tight_layout = True, figsize = [12,5])
+plt.bar(np.arange(len(life_expectancy_2010)), life_expectancy_2010, color = "seagreen")
+plt.xticks(np.arange(len(community_list)-1), community_list[1:], rotation=90)
 
-plt.bar(np.arange(len(life_1990_list)), life_2000_list, life_2010_list))
-plt.ylim([50, 80])
-plt.text(35, 61.8, "Minimum = ")
+
+#Label axes and title
+plt.xlabel("Community Names")
+plt.ylabel("2010 Life Expectancy")
+plt.title("Life Expectancy in 2010 by Community")
+
+#y limit, minimum, and extras
+plt.ylim([55, 90])
+plt.text(1, 61.8, "Minimum = ")
 plt.arrow(35, 61.8, 5, 5, head_width = 1, color = "black")
-'''
+
+
+plt.show()
+
